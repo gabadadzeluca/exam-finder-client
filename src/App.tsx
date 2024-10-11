@@ -31,15 +31,18 @@ function App() {
   const [lastUniGroup, setLastUniGroup] = useState("");
   const [examData, setExamData] = useState(null);
   console.log(uniGroup);
+  console.log(examData);
 
   const searchExams = () => {
     const storedData = localStorage.getItem(uniGroup);
     // If there's cached data, parse it safely
     if (storedData) {
       console.log("Using cached data");
-      setExamData(JSON.parse(storedData));
+      setExamData(JSON.parse(storedData).examData);
       return;
     }
+     // PROBLEM: track the data updates;
+    // idea: add time tag to each local storage data and update it if N days have passed 
 
     if (uniGroup !== lastUniGroup && isValidGroup(uniGroup)) {
       console.log("FETCHING DATA");
@@ -58,7 +61,7 @@ function App() {
       });
       console.log(response.data);
       // Save the fetched data to local storage
-      localStorage.setItem(uniGroup, JSON.stringify(response.data.examData));
+      localStorage.setItem(uniGroup, JSON.stringify({lastSavedAt: Date.now(), examData: response.data.examData}));
       setExamData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
