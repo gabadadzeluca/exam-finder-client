@@ -2,8 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import { GROUPS } from "./utils/groups";
 
-
-
 const API_URL = "http://localhost:5000/api/users";
 
 // const downloadExcel = async (examData ) => {
@@ -35,13 +33,16 @@ function App() {
   console.log(uniGroup);
 
   const searchExams = () => {
-    // ideas: 
-    // create an array of all groups? 22-01-01 22-02-01 and so on
-    // track uniGroup variable and compare it with a new uniGroup to see if both are valid?
-    // save examData in localStorage and if group is different AND valid, then return new data
+    const storedData = localStorage.getItem(uniGroup);
+    // If there's cached data, parse it safely
+    if (storedData) {
+      console.log("Using cached data");
+      setExamData(JSON.parse(storedData));
+      return;
+    }
 
     if (uniGroup !== lastUniGroup && isValidGroup(uniGroup)) {
-      console.log("FETCHING DATA")
+      console.log("FETCHING DATA");
       fetchAPI(uniGroup);
       setLastUniGroup(uniGroup);
     } else {
@@ -56,6 +57,8 @@ function App() {
         params: { uniGroup: uniGroup },
       });
       console.log(response.data);
+      // Save the fetched data to local storage
+      localStorage.setItem(uniGroup, JSON.stringify(response.data.examData));
       setExamData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -63,7 +66,7 @@ function App() {
     }
   };
 
-  const isValidGroup = (group:string) => {
+  const isValidGroup = (group: string) => {
     return GROUPS.includes(group);
   };
 
