@@ -1,5 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { GROUPS } from "./utils/groups";
+
+
 
 const API_URL = "http://localhost:5000/api/users";
 
@@ -37,12 +40,12 @@ function App() {
     // track uniGroup variable and compare it with a new uniGroup to see if both are valid?
     // save examData in localStorage and if group is different AND valid, then return new data
 
-    if (uniGroup !== lastUniGroup) { // add group validation here
+    if (uniGroup !== lastUniGroup && isValidGroup(uniGroup)) {
       console.log("FETCHING DATA")
       fetchAPI(uniGroup);
       setLastUniGroup(uniGroup);
     } else {
-      console.log("DATA ALREADY EXISTS");
+      console.log("DATA ALREADY EXISTS OR GROUP IS INVALID");
       console.log(examData);
     }
   };
@@ -58,6 +61,10 @@ function App() {
       console.error("Error fetching data:", error);
       throw error;
     }
+  };
+
+  const isValidGroup = (group:string) => {
+    return GROUPS.includes(group);
   };
 
   return (
