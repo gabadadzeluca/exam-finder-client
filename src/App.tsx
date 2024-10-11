@@ -27,16 +27,24 @@ const API_URL = "http://localhost:5000/api/users";
 
 function App() {
   const [uniGroup, setUniGroup] = useState("");
+  const [lastUniGroup, setLastUniGroup] = useState("");
   const [examData, setExamData] = useState(null);
   console.log(uniGroup);
 
   const searchExams = () => {
-    if(examData !== null) {
-      console.log("DATA AREADY EXISTS");
+    // ideas: 
+    // create an array of all groups? 22-01-01 22-02-01 and so on
+    // track uniGroup variable and compare it with a new uniGroup to see if both are valid?
+    // save examData in localStorage and if group is different AND valid, then return new data
+
+    if (uniGroup !== lastUniGroup) { // add group validation here
+      console.log("FETCHING DATA")
+      fetchAPI(uniGroup);
+      setLastUniGroup(uniGroup);
+    } else {
+      console.log("DATA ALREADY EXISTS");
       console.log(examData);
-      return;
     }
-    fetchAPI(uniGroup);
   };
 
   const fetchAPI = async (uniGroup: string) => {
