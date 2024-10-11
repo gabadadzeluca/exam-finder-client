@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const API_URL = "http://localhost:5000/api/users";
 
-// const downloadExcel = async (examData : any ) => {
+// const downloadExcel = async (examData ) => {
 //   try {
 //     const response = await axios.get('http://localhost:5000/excel/download', {
 //       params: {
@@ -27,10 +27,15 @@ const API_URL = "http://localhost:5000/api/users";
 
 function App() {
   const [uniGroup, setUniGroup] = useState("");
-  const [examData, setExamData] = useState();
+  const [examData, setExamData] = useState(null);
   console.log(uniGroup);
 
   const searchExams = () => {
+    if(examData !== null) {
+      console.log("DATA AREADY EXISTS");
+      console.log(examData);
+      return;
+    }
     fetchAPI(uniGroup);
   };
 
@@ -41,7 +46,6 @@ function App() {
       });
       console.log(response.data);
       setExamData(response.data);
-      return response.data;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
