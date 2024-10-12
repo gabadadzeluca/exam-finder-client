@@ -29,7 +29,6 @@ const downloadExcel = async (examData: any) => {
   }
 };
 
-
 const isValidGroup = (group: string) => {
   return GROUPS.includes(group);
 };
@@ -75,7 +74,7 @@ function App() {
       const response = await axios.get(API_URL, {
         params: { uniGroup: uniGroup },
       });
-      console.log(response.data);
+      console.log(response.data.examData);
       // Save the fetched data to local storage
       localStorage.setItem(
         uniGroup,
@@ -84,7 +83,7 @@ function App() {
           examData: response.data.examData,
         })
       );
-      setExamData(response.data);
+      setExamData(response.data.examData);
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
@@ -105,7 +104,7 @@ function App() {
     await fetchAPI(uniGroup);
     setLoading(false);
   };
-  
+
   return (
     <div>
       <input
