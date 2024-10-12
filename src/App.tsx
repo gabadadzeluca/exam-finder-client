@@ -5,27 +5,28 @@ import { formatDate } from "./utils/formatDate";
 
 const API_URL = "http://localhost:5000/api/data";
 
-// const downloadExcel = async (examData:any) => {
-//   try {
-//     const response = await axios.get('http://localhost:5000/excel/download', {
-//       params: {
-//         examData: examData
-//       },
-//       responseType: 'blob' // Important for handling binary data
-//     });
+const downloadExcel = async (examData:any) => {
+  console.log("EXAMDATA FROM DOWNLOAD",JSON.stringify(examData));
+  try {
+    const response = await axios.get('http://localhost:5000/excel/download', {
+      params: {
+        examData: JSON.stringify(examData)
+      },
+      responseType: 'blob'
+    });
 
-//     // Create a URL for the blob and trigger the download
-//     const url = window.URL.createObjectURL(new Blob([response.data]));
-//     const link = document.createElement('a');
-//     link.href = url;
-//     link.setAttribute('download', 'exams_excel.xlsx'); // Specify the file name
-//     document.body.appendChild(link);
-//     link.click();
-//     link.remove();
-//   } catch (error) {
-//     console.error('Error downloading the file', error);
-//   }
-// };
+    // Create a URL for the blob and trigger the download
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'exams_excel.xlsx');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  } catch (error) {
+    console.error('Error downloading the file', error);
+  }
+};
 
 const displayExamData = (data: any[]) => {
   if (data != null && data.length > 0) {
@@ -103,6 +104,7 @@ function App() {
   const refreshExcel = () => {
     // make a new request and update data
     fetchAPI(uniGroup);
+    // update the state, bc the displayed data isnt getting displayed after the refresh
   };
 
   return (
@@ -119,6 +121,8 @@ function App() {
       )}
       <button onClick={refreshExcel}>Refresh (Excel)</button>
       {examData && displayExamData(examData)}
+      {/* TEST BUTTON */}
+      <button onClick={()=>downloadExcel(examData)}>DOWNLOAD EXCEL FILE</button>
     </div>
   );
 }
