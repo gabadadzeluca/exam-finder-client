@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { GROUPS } from "./utils/groups";
-import { formatDate } from "./utils/formatDate";
 import { DataDisplay } from "./components/DataDisplay";
+import { formatDate } from "./utils/formatDate";
+import { GROUPS } from "./utils/groups";
 
 const API_URL = "http://localhost:5000/api/data";
 
