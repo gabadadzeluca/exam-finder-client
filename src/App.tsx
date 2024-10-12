@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { GROUPS } from "./utils/groups";
 import { formatDate } from "./utils/formatDate";
+import { DataDisplay } from "./components/DataDisplay";
 
 const API_URL = "http://localhost:5000/api/data";
 
@@ -28,17 +29,6 @@ const downloadExcel = async (examData: any) => {
   }
 };
 
-const displayExamData = (data: any[]) => {
-  if (data != null && data.length > 0) {
-    return data.map((arr, rowIndex) => (
-      <div key={rowIndex} style={{ marginBottom: "10px" }}>
-        {arr.map((value: string, colIndex: number) => (
-          <div key={colIndex}>{value}</div>
-        ))}
-      </div>
-    ));
-  }
-};
 
 const isValidGroup = (group: string) => {
   return GROUPS.includes(group);
@@ -58,7 +48,7 @@ function App() {
     }
   }, [loading]);
 
-  const searchExams = () => {
+  const searchExams = async () => {
     const storedData = localStorage.getItem(uniGroup);
     // If there's cached data, parse it safely
     if (storedData) {
@@ -69,7 +59,7 @@ function App() {
 
     if (uniGroup !== lastUniGroup && isValidGroup(uniGroup)) {
       console.log("FETCHING DATA");
-      fetchAPI(uniGroup);
+      await fetchAPI(uniGroup);
       setLastUniGroup(uniGroup);
     } else if (!isValidGroup(uniGroup)) {
       console.log("GROUP IS INVALID");
@@ -110,11 +100,12 @@ function App() {
     return formatDate(lastRefreshed); // add function to format time
   };
 
-  const refreshExcel = () => {
+  const refreshExcel = async () => {
     setLoading(true);
-    fetchAPI(uniGroup);
+    await fetchAPI(uniGroup);
+    setLoading(false);
   };
-
+  
   return (
     <div>
       <input
@@ -132,7 +123,7 @@ function App() {
       <button onClick={refreshExcel}>Refresh (Excel)</button>
       <p>LENGHT: {examData?.length}</p>
 
-      {examData && displayExamData(examData)}
+      {examData && <DataDisplay examData={examData} />}
       {/* TEST BUTTON */}
       <button onClick={() => downloadExcel(examData)}>
         DOWNLOAD EXCEL FILE
