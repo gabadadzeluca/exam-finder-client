@@ -27,6 +27,19 @@ const API_URL = "http://localhost:5000/api/data";
 //   }
 // };
 
+const displayExamData = (data: any[]) => {
+  if (data != null && data.length > 0) {
+    return data.map((arr, rowIndex) => (
+      <div key={rowIndex} style={{ marginBottom: '10px' }}>
+        {arr.map((value: string, colIndex:number) => (
+          <div key={colIndex}>{value}</div>
+        ))}
+      </div>
+    ));
+  }
+};
+
+
 function App() {
   const [uniGroup, setUniGroup] = useState("");
   const [lastUniGroup, setLastUniGroup] = useState("");
@@ -101,8 +114,11 @@ function App() {
       />
       <button onClick={searchExams}>Search</button>
 
-      {examData && isValidGroup(uniGroup) && <p>Last Refreshed: {getLastRefresh(uniGroup)}</p>}
+      {examData && isValidGroup(uniGroup) && (
+        <p>Last Refreshed: {getLastRefresh(uniGroup)}</p>
+      )}
       <button onClick={refreshExcel}>Refresh (Excel)</button>
+      {examData && displayExamData(examData)}
     </div>
   );
 }
