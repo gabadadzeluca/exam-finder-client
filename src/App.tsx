@@ -32,7 +32,6 @@ function App() {
   const [lastUniGroup, setLastUniGroup] = useState("");
   const [examData, setExamData] = useState(null);
 
-  console.log(uniGroup);
   console.log("EXAMDATA:", examData);
 
   const searchExams = () => {
@@ -102,8 +101,7 @@ function App() {
       />
       <button onClick={searchExams}>Search</button>
 
-      {/* SHOW RESULTS HERE */}
-      {examData && <p>Last Refreshed: {getLastRefresh(uniGroup)}</p>}
+      {examData && isValidGroup(uniGroup) && <p>Last Refreshed: {getLastRefresh(uniGroup)}</p>}
       <button onClick={refreshExcel}>Refresh (Excel)</button>
     </div>
   );
