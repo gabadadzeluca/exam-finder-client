@@ -47,9 +47,16 @@ const isValidGroup = (group: string) => {
 function App() {
   const [uniGroup, setUniGroup] = useState("");
   const [lastUniGroup, setLastUniGroup] = useState("");
-  const [examData, setExamData] = useState(null);
+  const [examData, setExamData] = useState<any[][] | null>(null);
+  const [loading, setLoading] = useState(false);
 
   console.log("EXAMDATA:", examData);
+
+  useEffect(() => {
+    if (loading) {
+      console.log("Loading new data...");
+    }
+  }, [loading]);
 
   const searchExams = () => {
     const storedData = localStorage.getItem(uniGroup);
@@ -74,6 +81,7 @@ function App() {
 
   const fetchAPI = async (uniGroup: string) => {
     try {
+      setLoading(true);
       const response = await axios.get(API_URL, {
         params: { uniGroup: uniGroup },
       });
@@ -90,6 +98,8 @@ function App() {
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -101,9 +111,8 @@ function App() {
   };
 
   const refreshExcel = () => {
-    // make a new request and update data
+    setLoading(true);
     fetchAPI(uniGroup);
-    // update the state, bc the displayed data isnt getting displayed after the refresh
   };
 
   return (
@@ -115,10 +124,14 @@ function App() {
       />
       <button onClick={searchExams}>Search</button>
 
+      {loading && <p>Loading...</p>}
+
       {examData && isValidGroup(uniGroup) && (
         <p>Last Refreshed: {getLastRefresh(uniGroup)}</p>
       )}
       <button onClick={refreshExcel}>Refresh (Excel)</button>
+      <p>LENGHT: {examData?.length}</p>
+
       {examData && displayExamData(examData)}
       {/* TEST BUTTON */}
       <button onClick={() => downloadExcel(examData)}>
