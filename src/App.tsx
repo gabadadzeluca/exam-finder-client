@@ -39,6 +39,10 @@ const displayExamData = (data: any[]) => {
   }
 };
 
+const isValidGroup = (group: string) => {
+  return GROUPS.includes(group);
+};
+
 
 function App() {
   const [uniGroup, setUniGroup] = useState("");
@@ -87,10 +91,6 @@ function App() {
       console.error("Error fetching data:", error);
       throw error;
     }
-  };
-
-  const isValidGroup = (group: string) => {
-    return GROUPS.includes(group);
   };
 
   const getLastRefresh = (group: string) => {
