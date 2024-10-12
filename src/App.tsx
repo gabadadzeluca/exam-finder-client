@@ -6,7 +6,8 @@ import { DataDisplay } from "./components/DataDisplay";
 
 const API_URL = "http://localhost:5000/api/data";
 
-const downloadExcel = async (examData: any) => {
+const downloadExcel = async (examData: any, uniGroup: string) => {
+  if (!isValidGroup(uniGroup)) return;
   console.log("EXAMDATA FROM DOWNLOAD", JSON.stringify(examData));
   try {
     const response = await axios.get("http://localhost:5000/excel/download", {
@@ -100,9 +101,11 @@ function App() {
   };
 
   const refreshExcel = async () => {
-    setLoading(true);
-    await fetchAPI(uniGroup);
-    setLoading(false);
+    if (isValidGroup(uniGroup)) {
+      setLoading(true);
+      await fetchAPI(uniGroup);
+      setLoading(false);
+    }
   };
 
   return (
@@ -115,16 +118,13 @@ function App() {
       <button onClick={searchExams}>Search</button>
 
       {loading && <p>Loading...</p>}
-
       {examData && isValidGroup(uniGroup) && (
         <p>Last Refreshed: {getLastRefresh(uniGroup)}</p>
       )}
       <button onClick={refreshExcel}>Refresh (Excel)</button>
-      <p>LENGHT: {examData?.length}</p>
-
       {examData && <DataDisplay examData={examData} />}
       {/* TEST BUTTON */}
-      <button onClick={() => downloadExcel(examData)}>
+      <button onClick={() => downloadExcel(examData, uniGroup)}>
         DOWNLOAD EXCEL FILE
       </button>
     </div>
