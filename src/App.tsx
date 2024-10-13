@@ -21,12 +21,12 @@ import { DataDisplay } from "./components/DataDisplay";
 import { Input } from "./components/Input";
 import { formatDate } from "./utils/formatDate";
 import { GROUPS } from "./utils/groups";
-import mapSvg from "./assets/svgs/map.svg";
 import excelSvg from "./assets/svgs/excel.svg";
+import { Footer } from "./components/Footer";
 
 ring2.register();
 
-const API_URL = "http://localhost:5000/api/data";
+const API_URL = "http://localhost:5000/api/data"; // change after hosting
 
 const ERROR_MSG = "ჯგუფი არ არსებობს, ან ჯერ არ არის დამატებული";
 
@@ -150,12 +150,12 @@ function App() {
 
       <SInputWrapper>
         <SLabel>
-          ⓘ ჯგუფის ფორმატია: 23-10-04, 22-01-01 და ა.შ. შემდეგ დააჭირეთ ძიების
-          ღილაკს
+          ⓘ ჯგუფის ფორმატია: 23-10-04, 22-01-01 და ა.შ. შეიყვანეთ ჯგუფი და
+          დააჭირეთ ძიების ღილაკს
         </SLabel>
         <SInputDiv>
           <Input
-            placeholder="ჩაწერე ჯგუფის ნომერი"
+            placeholder="ჩაწერეთ ჯგუფის ნომერი"
             type="text"
             onChange={handleInputChange}
           />
@@ -204,6 +204,7 @@ function App() {
           </SButtonsDiv>
         </SDataAndButtonsDiv>
       )}
+      <Footer />
     </SMainContainerDiv>
   );
 }
