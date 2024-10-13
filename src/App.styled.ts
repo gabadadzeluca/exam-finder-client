@@ -100,3 +100,12 @@ export const SDataAndButtonsDiv = styled.div`
   @media (max-width: 576px) {
   }
 `;
+
+export const SLogo = styled.div<{ logo: string; }>`
+  background-image: ${({ logo }) => `url(${logo})`};
+  width: 10rem;
+  height: 10rem;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+`;

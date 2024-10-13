@@ -6,6 +6,7 @@ import {
   SDataAndButtonsDiv,
   SInputDiv,
   SLastRefreshP,
+  SLogo,
   SLoadingDiv,
   SMainContainerDiv,
   SSearchButton,
@@ -17,6 +18,7 @@ import { DataDisplay } from "./components/DataDisplay";
 import { Input } from "./components/Input";
 import { formatDate } from "./utils/formatDate";
 import { GROUPS } from "./utils/groups";
+import mapSvg from "./assets/svgs/map.svg";
 
 ring2.register();
 
@@ -126,6 +128,7 @@ function App() {
 
   return (
     <SMainContainerDiv>
+      <SLogo logo={mapSvg}/>
       <SInputDiv>
         <Input
           placeholder="ჩაწერე ჯგუფის ნომერი"
