@@ -1,19 +1,22 @@
 import axios from "axios";
+import { ring2 } from "ldrs";
 import { useEffect, useState } from "react";
+import {
+  SButtonsDiv,
+  SDataAndButtonsDiv,
+  SInputDiv,
+  SLastRefreshP,
+  SLoadingDiv,
+  SMainContainerDiv,
+  SSearchButton,
+} from "./App.styled";
+import downloadIcon from "./assets/svgs/download.svg";
+import excelColoredIcon from "./assets/svgs/excelColored.svg";
+import { Button } from "./components/Button";
 import { DataDisplay } from "./components/DataDisplay";
+import { Input } from "./components/Input";
 import { formatDate } from "./utils/formatDate";
 import { GROUPS } from "./utils/groups";
-import { Input } from "./components/Input";
-import styled from "styled-components";
-import searchIcon from "./assets/svgs/searchIcon.svg";
-import brightSearchIcon from "./assets/svgs/searchIconBright.svg";
-import { Button } from "./components/Button";
-import excelColoredIcon from "./assets/svgs/excelColored.svg";
-import downloadIcon from "./assets/svgs/download.svg";
-import { COLORS } from "./utils/colors";
-// import 'ldrs/ring'
-
-import { ring2 } from "ldrs";
 
 ring2.register();
 
@@ -147,10 +150,9 @@ function App() {
 
       {examData && isValidGroup(uniGroup) && (
         <SLastRefreshP>
-          Last Refreshed: {getLastRefresh(uniGroup)}
+          ბოლოს განახლდა: {getLastRefresh(uniGroup)}
         </SLastRefreshP>
       )}
-
 
       <SDataAndButtonsDiv>
         {examData && <DataDisplay examData={examData} />}
@@ -161,7 +163,6 @@ function App() {
             icon={excelColoredIcon}
             width="10rem"
             height="4rem"
-            // bgColor="#101010"
           />
           <Button
             onClick={() => downloadExcel(examData, uniGroup)}
@@ -169,72 +170,11 @@ function App() {
             icon={downloadIcon}
             width="13rem"
             height="4rem"
-            // bgColor="#101010"
           />
         </SButtonsDiv>
       </SDataAndButtonsDiv>
-
     </SMainContainerDiv>
   );
 }
 
 export default App;
-
-const SFlexContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const SMainContainerDiv = styled(SFlexContainer)`
-  width: 100%;
-  min-height: 100vh;
-  height: 100%;
-  color: ${COLORS.GREENISH_BLUE};
-`;
-const SInputDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 40%;
-  justify-content: space-between;
-  border: 0.125rem solid white;
-  border-radius: 0.8rem;
-  margin-top: 4rem;
-  margin-bottom: 5rem;
-`;
-
-const SSearchButton = styled.button`
-  all: unset;
-  background-image: url(${searchIcon});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 40%;
-  width: 20%;
-
-  &:hover {
-    cursor: pointer;
-    background-image: url(${brightSearchIcon});
-  }
-`;
-
-const SButtonsDiv = styled(SFlexContainer)`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  & > div{
-    margin-bottom: 3rem;
-  }
-`;
-
-const SLoadingDiv = styled.div``;
-const SLastRefreshP = styled.p`
-  font-size: 1.25rem;
-`;
-
-const SDataAndButtonsDiv = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-around;
-`
