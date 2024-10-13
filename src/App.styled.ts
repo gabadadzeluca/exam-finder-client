@@ -32,12 +32,20 @@ export const SSearchButton = styled.button`
   background-image: url(${searchIcon});
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 40%;
+  background-size: 2rem;
   width: 20%;
 
   &:hover {
     cursor: pointer;
     background-image: url(${brightSearchIcon});
+  }
+
+  @media (max-width: 768px) {
+    background-size: 1.75rem;
+  }
+
+  @media (max-width: 576px) {
+    background-size: 1rem;
   }
 `;
 
@@ -56,7 +64,19 @@ export const SButtonsDiv = styled(SFlexContainer)`
 
 export const SLoadingDiv = styled.div``;
 export const SLastRefreshP = styled.p`
+  margin-bottom: 2rem;
   font-size: 1.25rem;
+  @media (max-width: 992px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 0.75rem;
+  }
 `;
 
 export const SDataAndButtonsDiv = styled.div`
