@@ -128,7 +128,7 @@ function App() {
 
   return (
     <SMainContainerDiv>
-      <SLogo logo={mapSvg}/>
+      <SLogo $logo={mapSvg}/>
       <SInputDiv>
         <Input
           placeholder="ჩაწერე ჯგუფის ნომერი"

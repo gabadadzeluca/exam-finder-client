@@ -101,8 +101,8 @@ export const SDataAndButtonsDiv = styled.div`
   }
 `;
 
-export const SLogo = styled.div<{ logo: string; }>`
-  background-image: ${({ logo }) => `url(${logo})`};
+export const SLogo = styled.div<{ $logo: string; }>`
+  background-image: ${({ $logo }) => `url(${$logo})`};
   width: 10rem;
   height: 10rem;
   background-position: center;
