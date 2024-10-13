@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import { DataDisplay } from "./components/DataDisplay";
 import { formatDate } from "./utils/formatDate";
 import { GROUPS } from "./utils/groups";
+import { Input } from "./components/Input";
+import styled from "styled-components";
+import searchIcon from "./assets/svgs/searchIcon.svg";
+import brightSearchIcon from "./assets/svgs/searchIconBright.svg";
 
 const API_URL = "http://localhost:5000/api/data";
 
@@ -109,26 +113,65 @@ function App() {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="ჩაწერეთ ჯგუფის სახელი"
-        onChange={(event) => setUniGroup(event.target.value)}
-      />
-      <button onClick={searchExams}>Search</button>
+    <SMainContainerDiv>
+      <SInputDiv>
+        <Input
+          placeholder="ჩაწერე ჯგუფის ნომერი"
+          type="text"
+          onChange={(event) => setUniGroup(event.target.value)}
+        />
+        <SSearchButton onClick={searchExams}></SSearchButton>
+      </SInputDiv>
 
-      {loading && <p>Loading...</p>}
-      {examData && isValidGroup(uniGroup) && (
-        <p>Last Refreshed: {getLastRefresh(uniGroup)}</p>
-      )}
-      <button onClick={refreshExcel}>Refresh (Excel)</button>
-      {examData && <DataDisplay examData={examData} />}
-      {/* TEST BUTTON */}
-      <button onClick={() => downloadExcel(examData, uniGroup)}>
-        DOWNLOAD EXCEL FILE
-      </button>
-    </div>
+      <div>
+        {loading && <p>Loading...</p>}
+        {examData && isValidGroup(uniGroup) && (
+          <p>Last Refreshed: {getLastRefresh(uniGroup)}</p>
+        )}
+        <button onClick={refreshExcel}>Refresh (Excel)</button>
+        {examData && <DataDisplay examData={examData} />}
+        {/* TEST BUTTON */}
+        <button onClick={() => downloadExcel(examData, uniGroup)}>
+          DOWNLOAD EXCEL FILE
+        </button>
+      </div>
+    </SMainContainerDiv>
   );
 }
 
 export default App;
+
+const SFlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SMainContainerDiv = styled(SFlexContainer)`
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+`;
+const SInputDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+  justify-content: space-between;
+  border: 0.125rem solid white;
+  border-radius: 0.8rem;
+`;
+
+const SSearchButton = styled.button`
+  all: unset;
+  background-image: url(${searchIcon});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 40%;
+  width: 20%;
+
+  &:hover {
+    cursor: pointer;
+    background-image: url(${brightSearchIcon});
+  }
+`;
