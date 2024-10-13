@@ -20,8 +20,7 @@ export const Input: React.FC<InputProps> = ({
   );
 };
 
-const SInputContainer = styled.div`
-`;
+const SInputContainer = styled.div``;
 
 const SInput = styled.input`
   all: unset;
@@ -33,7 +32,16 @@ const SInput = styled.input`
   font-size: 1.5rem;
   font-weight: 600;
   border-radius: 0.8rem;
-  /* text-align: center; */
 
-  // add styles for the mobile
+  @media (max-width: 992px) {
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 0.625rem;
+  }
 `;
