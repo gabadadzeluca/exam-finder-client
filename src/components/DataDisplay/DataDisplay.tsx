@@ -23,21 +23,21 @@ const displayByIndex = (index: number, value: string) => {
   // return needed component by checking the index
   switch (index) {
     case 0:
-      return <SDataP>დრო: {value}</SDataP>;
+      return <SDataP key={index}>დრო: {value}</SDataP>;
     case 1:
-      return <SDataP>საგანი: {value}</SDataP>;
+      return <SDataP key={index}>საგანი: {value}</SDataP>;
     case 2:
-      return <SDataP>ლექტორი: {value}</SDataP>;
+      return <SDataP key={index}>ლექტორი: {value}</SDataP>;
     case 3:
-      return <SDataP>ჯგუფი: {value}</SDataP>;
+      return <SDataP key={index}>ჯგუფი: {value}</SDataP>;
     case 4:
-      return <SDataP>უნი: {value}</SDataP>;
+      return <SDataP key={index}>უნი: {value}</SDataP>;
     case 5:
-      return <SDataP>რაოდ: {value}</SDataP>;
+      return <SDataP key={index}>რაოდ: {value}</SDataP>;
     case 6:
-      return <SDataP>თარიღი: {value}</SDataP>;
+      return <SDataP key={index}>თარიღი: {value}</SDataP>;
     default:
-      return <SDataP>{value}</SDataP>;
+      return <SDataP key={index}>{value}</SDataP>;
   }
 };
 
@@ -59,8 +59,8 @@ export const DataDisplay = (props: { examData: any[][] }) => {
     return (
       <SDataContainer>
         {examData.map((arr, rowIndex) => (
-          <SDataRowWrapper>
-            <SDataRowDiv key={rowIndex}>
+          <SDataRowWrapper key={rowIndex}>
+            <SDataRowDiv>
               {/* DISPLAY ONLY IMPORTANT DATA */}
               {arr.map((value: string, colIndex: number) => {
                 return (
