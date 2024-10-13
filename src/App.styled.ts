@@ -24,7 +24,7 @@ export const SInputDiv = styled.div`
   border: 0.125rem solid white;
   border-radius: 0.8rem;
   margin-top: 4rem;
-  margin-bottom: 5rem;
+  margin-bottom: 1.5rem;
 `;
 
 export const SSearchButton = styled.button`
@@ -101,11 +101,22 @@ export const SDataAndButtonsDiv = styled.div`
   }
 `;
 
-export const SLogo = styled.div<{ $logo: string; }>`
+export const SLogo = styled.div<{ $logo: string }>`
   background-image: ${({ $logo }) => `url(${$logo})`};
   width: 10rem;
   height: 10rem;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+`;
+
+export const SError = styled.p`
+  color: #d1060e;
+  font-size: 0.9375rem;
+  margin-bottom: 4rem;
+  @media (max-width: 768px) {
+    font-size: 0.6rem;
+    max-width: 10rem;
+    text-align: center;
+  }
 `;
