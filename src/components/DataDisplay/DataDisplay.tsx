@@ -7,6 +7,10 @@ import {
   SDropdownDataDiv,
   SInlineDataP,
 } from "./DataDisplay.styled";
+import { Button } from "../Button";
+import arrowDown from "./../../assets/svgs/arrowDown.svg";
+import arrowUp from "./../../assets/svgs/arrowUp.svg";
+
 // indexes of the most imporant data in the default array
 const DATA_INDEXES = [0, 1, 6];
 
@@ -67,11 +71,15 @@ export const DataDisplay = (props: { examData: any[][] }) => {
                   </SInlineDataP>
                 );
               })}
-
               {/* PRESS A BUTTON TO DROP DOWN A MENU WITH ALL THE DATA */}
-              <button onClick={() => toggleDropdown(rowIndex)}>
-                {dropdownStates[rowIndex] ? "Hide" : "Show"}
-              </button>
+              <Button
+                // onClick={() => {}}
+                onClick={() => toggleDropdown(rowIndex)}
+                icon={dropdownStates[rowIndex] ? arrowUp : arrowDown}
+                width="3rem"
+                bgColor="transparent"
+                value=""
+              />
             </SDataRowDiv>
 
             {/* if dropdown shown display whole data */}
