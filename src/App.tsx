@@ -11,6 +11,8 @@ import {
   SMainContainerDiv,
   SSearchButton,
   SError,
+  SLabel,
+  SInputWrapper,
 } from "./App.styled";
 import downloadIcon from "./assets/svgs/download.svg";
 import excelColoredIcon from "./assets/svgs/excelColored.svg";
@@ -145,14 +147,22 @@ function App() {
   return (
     <SMainContainerDiv>
       <SLogo $logo={excelSvg} />
-      <SInputDiv>
-        <Input
-          placeholder="ჩაწერე ჯგუფის ნომერი"
-          type="text"
-          onChange={handleInputChange}
-        />
-        <SSearchButton onClick={searchExams}></SSearchButton>
-      </SInputDiv>
+
+      <SInputWrapper>
+        <SLabel>
+          ⓘ ჯგუფის ფორმატია: 23-10-04, 22-01-01 და ა.შ. შემდეგ დააჭირეთ ძიების
+          ღილაკს
+        </SLabel>
+        <SInputDiv>
+          <Input
+            placeholder="ჩაწერე ჯგუფის ნომერი"
+            type="text"
+            onChange={handleInputChange}
+          />
+          <SSearchButton onClick={searchExams}></SSearchButton>
+        </SInputDiv>
+      </SInputWrapper>
+
       {errorMsg.length > 0 && <SError>{errorMsg}</SError>}
       {loading && (
         <SLoadingDiv>
