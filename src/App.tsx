@@ -19,6 +19,7 @@ import { Input } from "./components/Input";
 import { formatDate } from "./utils/formatDate";
 import { GROUPS } from "./utils/groups";
 import mapSvg from "./assets/svgs/map.svg";
+import excelSvg from "./assets/svgs/excel.svg";
 
 ring2.register();
 
@@ -57,6 +58,7 @@ function App() {
   const [lastUniGroup, setLastUniGroup] = useState("");
   const [examData, setExamData] = useState<any[][] | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   console.log("EXAMDATA:", examData);
 
@@ -70,18 +72,23 @@ function App() {
     const storedData = localStorage.getItem(uniGroup);
     // If there's cached data, parse it safely
     if (storedData) {
+      setIsError(false);
       console.log("Using cached data");
       setExamData(JSON.parse(storedData).examData);
       return;
     }
 
     if (uniGroup !== lastUniGroup && isValidGroup(uniGroup)) {
+      setIsError(false);
       console.log("FETCHING DATA");
       await fetchAPI(uniGroup);
       setLastUniGroup(uniGroup);
     } else if (!isValidGroup(uniGroup)) {
+      // set error to true;
+      setIsError(true);
       console.log("GROUP IS INVALID");
     } else {
+      setIsError(false);
       console.log("DATA ALREADY EXISTS");
       console.log(examData);
     }
@@ -126,18 +133,24 @@ function App() {
     }
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (isValidGroup(value)) setIsError(false);
+    setUniGroup(value);
+  };
+
   return (
     <SMainContainerDiv>
-      <SLogo $logo={mapSvg}/>
+      <SLogo $logo={excelSvg} />
       <SInputDiv>
         <Input
           placeholder="ჩაწერე ჯგუფის ნომერი"
           type="text"
-          onChange={(event) => setUniGroup(event.target.value)}
+          onChange={handleInputChange}
         />
         <SSearchButton onClick={searchExams}></SSearchButton>
       </SInputDiv>
-
+      {isError && <div>ERROR!!!</div>}
       {loading && (
         <SLoadingDiv>
           <l-ring-2
