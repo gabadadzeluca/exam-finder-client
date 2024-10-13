@@ -10,6 +10,9 @@ import {
   SLoadingDiv,
   SMainContainerDiv,
   SSearchButton,
+  SError,
+  SLabel,
+  SInputWrapper,
 } from "./App.styled";
 import downloadIcon from "./assets/svgs/download.svg";
 import excelColoredIcon from "./assets/svgs/excelColored.svg";
@@ -19,10 +22,13 @@ import { Input } from "./components/Input";
 import { formatDate } from "./utils/formatDate";
 import { GROUPS } from "./utils/groups";
 import mapSvg from "./assets/svgs/map.svg";
+import excelSvg from "./assets/svgs/excel.svg";
 
 ring2.register();
 
 const API_URL = "http://localhost:5000/api/data";
+
+const ERROR_MSG = "ჯგუფი არ არსებობს, ან ჯერ არ არის დამატებული";
 
 const downloadExcel = async (examData: any, uniGroup: string) => {
   if (!isValidGroup(uniGroup)) return;
@@ -57,6 +63,7 @@ function App() {
   const [lastUniGroup, setLastUniGroup] = useState("");
   const [examData, setExamData] = useState<any[][] | null>(null);
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   console.log("EXAMDATA:", examData);
 
@@ -70,18 +77,23 @@ function App() {
     const storedData = localStorage.getItem(uniGroup);
     // If there's cached data, parse it safely
     if (storedData) {
+      setErrorMsg("");
       console.log("Using cached data");
       setExamData(JSON.parse(storedData).examData);
       return;
     }
 
     if (uniGroup !== lastUniGroup && isValidGroup(uniGroup)) {
+      setErrorMsg("");
       console.log("FETCHING DATA");
       await fetchAPI(uniGroup);
       setLastUniGroup(uniGroup);
     } else if (!isValidGroup(uniGroup)) {
+      // set error to true;
+      setErrorMsg(ERROR_MSG);
       console.log("GROUP IS INVALID");
     } else {
+      setErrorMsg("");
       console.log("DATA ALREADY EXISTS");
       console.log(examData);
     }
@@ -126,18 +138,32 @@ function App() {
     }
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (isValidGroup(value)) setErrorMsg("");
+    setUniGroup(value);
+  };
+
   return (
     <SMainContainerDiv>
-      <SLogo $logo={mapSvg}/>
-      <SInputDiv>
-        <Input
-          placeholder="ჩაწერე ჯგუფის ნომერი"
-          type="text"
-          onChange={(event) => setUniGroup(event.target.value)}
-        />
-        <SSearchButton onClick={searchExams}></SSearchButton>
-      </SInputDiv>
+      <SLogo $logo={excelSvg} />
 
+      <SInputWrapper>
+        <SLabel>
+          ⓘ ჯგუფის ფორმატია: 23-10-04, 22-01-01 და ა.შ. შემდეგ დააჭირეთ ძიების
+          ღილაკს
+        </SLabel>
+        <SInputDiv>
+          <Input
+            placeholder="ჩაწერე ჯგუფის ნომერი"
+            type="text"
+            onChange={handleInputChange}
+          />
+          <SSearchButton onClick={searchExams}></SSearchButton>
+        </SInputDiv>
+      </SInputWrapper>
+
+      {errorMsg.length > 0 && <SError>{errorMsg}</SError>}
       {loading && (
         <SLoadingDiv>
           <l-ring-2

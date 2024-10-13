@@ -23,8 +23,8 @@ export const SInputDiv = styled.div`
   justify-content: space-between;
   border: 0.125rem solid white;
   border-radius: 0.8rem;
-  margin-top: 4rem;
-  margin-bottom: 5rem;
+  /* margin-top: 4rem; */
+  margin-bottom: 1.5rem;
 `;
 
 export const SSearchButton = styled.button`
@@ -101,11 +101,44 @@ export const SDataAndButtonsDiv = styled.div`
   }
 `;
 
-export const SLogo = styled.div<{ $logo: string; }>`
+export const SLogo = styled.div<{ $logo: string }>`
   background-image: ${({ $logo }) => `url(${$logo})`};
   width: 10rem;
   height: 10rem;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+`;
+
+export const SError = styled.p`
+  color: #d1060e;
+  font-size: 0.9375rem;
+  margin-bottom: 4rem;
+  font-weight: 400;
+  @media (max-width: 768px) {
+    font-size: 0.6rem;
+    max-width: 11rem;
+    text-align: center;
+  }
+`;
+
+export const SLabel = styled.p`
+  font-size: 0.75rem;
+  color: gray;
+  font-weight: 400;
+  @media (max-width: 768px) {
+    font-size: 0.6rem;
+    max-width: 10rem;
+    text-align: center;
+  }
+`;
+export const SInputWrapper = styled.div`
+// wraps input and label together
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 4rem;
 `;
