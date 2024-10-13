@@ -52,7 +52,9 @@ const SButtonDiv = styled.div<{
   font-size: 1.1rem;
 
   &:hover {
-    background-color: ${({ $bgColor }) => ($bgColor ? $bgColor : "#463473")};
+    /* background-color: ${({ $bgColor }) => ($bgColor ? $bgColor : "#463473")}; */
+    /* background-color: "#463473"; */
+    /* TEST */
   }
 `;
 
