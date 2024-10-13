@@ -41,10 +41,15 @@ const SButtonDiv = styled.div<{ width?: string; height?: string }>`
   justify-content: space-between;
   border-radius: 0.8rem;
   padding: 0 0.8rem;
-  font-weight: 500;
-  background-color: #5012a7;
+  background-color: #24193f;
   color: ${COLORS.GREENISH_BLUE};
+  font-weight: 500;
   font-size: 1.1rem;
+
+
+  &:hover {
+    background-color: #463473;
+  }
 `;
 
 const SideIcon = styled.div<{ $icon: string }>`
