@@ -1,10 +1,8 @@
 import styled from "styled-components";
 export const SDataContainer = styled.div`
-  background-color: #101010;
   width: 70%;
   display: flex;
   flex-direction: column;
-  padding: 2rem;
   border-radius: 0.8rem;
   align-self: flex-start;
   margin-left: 3rem;
@@ -13,7 +11,7 @@ export const SDataContainer = styled.div`
 
   @media (max-width: 992px) {
     width: 75%;
-    margin-left: 0;
+    margin-left: 1.5rem;
     align-self: center;
   }
 
@@ -73,19 +71,22 @@ export const SDataP = styled.p`
 `;
 
 export const SInlineDataP = styled.p`
-  max-width: 12rem;
+  max-width: 19rem;
   font-size: 1.25rem;
 
   @media (max-width: 1200px) {
     font-size: 1.15rem;
+    max-width: 16rem;
   }
 
   @media (max-width: 992px) {
     font-size: 1rem;
+    max-width: 13rem;
   }
 
   @media (max-width: 768px) {
     font-size: 0.875rem;
+    max-width: 10rem;
   }
 
   @media (max-width: 576px) {
