@@ -154,25 +154,27 @@ function App() {
         </SLastRefreshP>
       )}
 
-      <SDataAndButtonsDiv>
-        {examData && <DataDisplay examData={examData} />}
-        <SButtonsDiv>
-          <Button
-            onClick={refreshExcel}
-            value="განახლება"
-            icon={excelColoredIcon}
-            width="10rem"
-            height="4rem"
-          />
-          <Button
-            onClick={() => downloadExcel(examData, uniGroup)}
-            value="გადმოწერა (xlsx)"
-            icon={downloadIcon}
-            width="13rem"
-            height="4rem"
-          />
-        </SButtonsDiv>
-      </SDataAndButtonsDiv>
+      {examData && (
+        <SDataAndButtonsDiv>
+          <DataDisplay examData={examData} />
+          <SButtonsDiv>
+            <Button
+              onClick={refreshExcel}
+              value="განახლება"
+              icon={excelColoredIcon}
+              width="10rem"
+              height="4rem"
+            />
+            <Button
+              onClick={() => downloadExcel(examData, uniGroup)}
+              value="გადმოწერა (xlsx)"
+              icon={downloadIcon}
+              width="13rem"
+              height="4rem"
+            />
+          </SButtonsDiv>
+        </SDataAndButtonsDiv>
+      )}
     </SMainContainerDiv>
   );
 }
