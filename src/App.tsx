@@ -7,6 +7,15 @@ import { Input } from "./components/Input";
 import styled from "styled-components";
 import searchIcon from "./assets/svgs/searchIcon.svg";
 import brightSearchIcon from "./assets/svgs/searchIconBright.svg";
+import { Button } from "./components/Button";
+import excelColoredIcon from "./assets/svgs/excelColored.svg";
+import downloadIcon from "./assets/svgs/download.svg";
+import { COLORS } from "./utils/colors";
+// import 'ldrs/ring'
+
+import { ring2 } from "ldrs";
+
+ring2.register();
 
 const API_URL = "http://localhost:5000/api/data";
 
@@ -123,18 +132,48 @@ function App() {
         <SSearchButton onClick={searchExams}></SSearchButton>
       </SInputDiv>
 
-      <div>
-        {loading && <p>Loading...</p>}
-        {examData && isValidGroup(uniGroup) && (
-          <p>Last Refreshed: {getLastRefresh(uniGroup)}</p>
-        )}
-        <button onClick={refreshExcel}>Refresh (Excel)</button>
+      {loading && (
+        <SLoadingDiv>
+          <l-ring-2
+            size="35"
+            stroke="4"
+            stroke-length="0.25"
+            bg-opacity="0.1"
+            speed="0.8"
+            color="#DFF3E4"
+          ></l-ring-2>
+        </SLoadingDiv>
+      )}
+
+      {examData && isValidGroup(uniGroup) && (
+        <SLastRefreshP>
+          Last Refreshed: {getLastRefresh(uniGroup)}
+        </SLastRefreshP>
+      )}
+
+
+      <SDataAndButtonsDiv>
         {examData && <DataDisplay examData={examData} />}
-        {/* TEST BUTTON */}
-        <button onClick={() => downloadExcel(examData, uniGroup)}>
-          DOWNLOAD EXCEL FILE
-        </button>
-      </div>
+        <SButtonsDiv>
+          <Button
+            onClick={refreshExcel}
+            value="განახლება"
+            icon={excelColoredIcon}
+            width="10rem"
+            height="4rem"
+            // bgColor="#101010"
+          />
+          <Button
+            onClick={() => downloadExcel(examData, uniGroup)}
+            value="გადმოწერა (xlsx)"
+            icon={downloadIcon}
+            width="13rem"
+            height="4rem"
+            // bgColor="#101010"
+          />
+        </SButtonsDiv>
+      </SDataAndButtonsDiv>
+
     </SMainContainerDiv>
   );
 }
@@ -152,6 +191,7 @@ const SMainContainerDiv = styled(SFlexContainer)`
   width: 100%;
   min-height: 100vh;
   height: 100%;
+  color: ${COLORS.GREENISH_BLUE};
 `;
 const SInputDiv = styled.div`
   display: flex;
@@ -160,6 +200,8 @@ const SInputDiv = styled.div`
   justify-content: space-between;
   border: 0.125rem solid white;
   border-radius: 0.8rem;
+  margin-top: 4rem;
+  margin-bottom: 5rem;
 `;
 
 const SSearchButton = styled.button`
@@ -175,3 +217,24 @@ const SSearchButton = styled.button`
     background-image: url(${brightSearchIcon});
   }
 `;
+
+const SButtonsDiv = styled(SFlexContainer)`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  & > div{
+    margin-bottom: 3rem;
+  }
+`;
+
+const SLoadingDiv = styled.div``;
+const SLastRefreshP = styled.p`
+  font-size: 1.25rem;
+`;
+
+const SDataAndButtonsDiv = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+`
