@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { COLORS } from "../../utils/colors";
 import { useState } from "react";
 
 // indexes of the most imporant data in the default array
@@ -8,6 +7,29 @@ const DATA_INDEXES = [0, 1, 6];
 const isDataIndexIncluded = (index: number) => {
   return DATA_INDEXES.includes(index);
 };
+
+const displayByIndex = (index: number, value: string) =>{
+  // each index is different kind of data
+  // return needed component by checking the index
+  switch (index) {
+    case 0:
+      return <SDataP>დრო: {value}</SDataP>; 
+    case 1:
+      return <SDataP>საგანი: {value}</SDataP>; 
+    case 2:
+      return <SDataP>ლექტორი: {value}</SDataP>; 
+    case 3:
+      return <SDataP>ჯგუფი: {value}</SDataP>; 
+    case 4:
+      return <SDataP>უნი: {value}</SDataP>; 
+    case 5:
+      return <SDataP>რაოდ: {value}</SDataP>; 
+    case 6:
+      return <SDataP>თარიღი: {value}</SDataP>; 
+    default:
+      return <SDataP>{value}</SDataP>;
+  }
+}
 
 export const DataDisplay = (props: { examData: any[][] }) => {
   const [dropdownStates, setDropdownStates] = useState<{
@@ -29,11 +51,6 @@ export const DataDisplay = (props: { examData: any[][] }) => {
         {examData.map((arr, rowIndex) => (
           <SDataRowWrapper>
             <SDataRowDiv key={rowIndex}>
-              {/* PRESS A BUTTON TO DROP DOWN A MENU WITH ALL THE DATA */}
-              <button onClick={() => toggleDropdown(rowIndex)}>
-                {dropdownStates[rowIndex] ? "Hide Data" : "Show Data"}
-              </button>
-
               {/* DISPLAY ONLY IMPORTANT DATA */}
               {arr.map((value: string, colIndex: number) => {
                 return (
@@ -44,15 +61,21 @@ export const DataDisplay = (props: { examData: any[][] }) => {
                   </div>
                 );
               })}
+
+              {/* PRESS A BUTTON TO DROP DOWN A MENU WITH ALL THE DATA */}
+              <button onClick={() => toggleDropdown(rowIndex)}>
+                {dropdownStates[rowIndex] ? "Hide Data" : "Show Data"}
+              </button>
             </SDataRowDiv>
 
             {/* if dropdown shown display whole data */}
             {dropdownStates[rowIndex] && (
-              <SDropdownData>
+              <SDropdownDataDiv>
                 {arr.map((value: string, colIndex: number) => (
-                  <div key={colIndex}>{value}</div>
+                  // <div key={colIndex}>{value}</div>
+                  displayByIndex(colIndex, value)
                 ))}
-              </SDropdownData>
+              </SDropdownDataDiv>
             )}
           </SDataRowWrapper>
         ))}
@@ -65,11 +88,13 @@ export const DataDisplay = (props: { examData: any[][] }) => {
 const SDataContainer = styled.div`
   background-color: #101010;
   width: 70%;
-  align-self: flex-start;
-  margin-left: 3rem;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
+  padding: 2rem;
+  align-self: flex-start;
+  margin-left: 3rem;
+  font-size: 18px;
+  font-weight: 500;
 `;
 
 const SDataRowDiv = styled.div`
@@ -79,7 +104,7 @@ const SDataRowDiv = styled.div`
   justify-content: space-between;
   padding: 0 2rem;
 
-  margin: 2rem 0; // TEMPORARY
+  margin: 0 0 2rem; // TEMPORARY
 
   height: 5rem;
   background-color: blue; // TEMP
@@ -88,9 +113,17 @@ const SDataRowDiv = styled.div`
 const SDataRowWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: red;
 `;
 
-const SDropdownData = styled.div`
-  background-color: green;
+const SDropdownDataDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+
+  border: 2px solid white; // TEMP
+
+`;
+
+const SDataP = styled.p`
+  
 `
