@@ -101,10 +101,10 @@ export const SDataAndButtonsDiv = styled.div`
   }
 `;
 
-export const SLogo = styled.div<{ $logo: string }>`
+export const SLogo = styled.div<{ $logo: string; width?: string; }>`
   background-image: ${({ $logo }) => `url(${$logo})`};
-  width: 10rem;
-  height: 10rem;
+  width: ${({width})=>width ? width : '10rem'};
+  height: ${({width})=>width ? width : '10rem'};
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
