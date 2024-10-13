@@ -29,6 +29,8 @@ ring2.register();
 const API_URL = "http://localhost:5000/api/data"; // change after hosting
 
 const ERROR_MSG = "ჯგუფი არ არსებობს, ან ჯერ არ არის დამატებული";
+const LABEL_MSG =
+  " ⓘ ჯგუფის ფორმატია: 23-10-04, 22-01-01 და ა.შ. შეიყვანეთ ჯგუფი და დააჭირეთ ძიების ღილაკს";
 
 const downloadExcel = async (examData: any, uniGroup: string) => {
   if (!isValidGroup(uniGroup)) return;
@@ -149,10 +151,7 @@ function App() {
       <SLogo $logo={excelSvg} />
 
       <SInputWrapper>
-        <SLabel>
-          ⓘ ჯგუფის ფორმატია: 23-10-04, 22-01-01 და ა.შ. შეიყვანეთ ჯგუფი და
-          დააჭირეთ ძიების ღილაკს
-        </SLabel>
+        <SLabel>{LABEL_MSG}</SLabel>
         <SInputDiv>
           <Input
             placeholder="ჩაწერეთ ჯგუფის ნომერი"
