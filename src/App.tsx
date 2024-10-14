@@ -21,7 +21,6 @@ import { DataDisplay } from "./components/DataDisplay";
 import { Input } from "./components/Input";
 import { formatDate } from "./utils/formatDate";
 import { GROUPS } from "./utils/groups";
-import mapSvg from "./assets/svgs/map.svg";
 import excelSvg from "./assets/svgs/excel.svg";
 
 ring2.register();
