@@ -21,14 +21,16 @@ import { DataDisplay } from "./components/DataDisplay";
 import { Input } from "./components/Input";
 import { formatDate } from "./utils/formatDate";
 import { GROUPS } from "./utils/groups";
-import mapSvg from "./assets/svgs/map.svg";
 import excelSvg from "./assets/svgs/excel.svg";
+import { Footer } from "./components/Footer";
 
 ring2.register();
 
-const API_URL = "http://localhost:5000/api/data";
+const API_URL = "https://exam-finder-server-production.up.railway.app/"; // change after hosting
 
 const ERROR_MSG = "ჯგუფი არ არსებობს, ან ჯერ არ არის დამატებული";
+const LABEL_MSG =
+  " ⓘ ჯგუფის ფორმატია: 23-10-04, 22-01-01 და ა.შ. შეიყვანეთ ჯგუფი და დააჭირეთ ძიების ღილაკს";
 
 const downloadExcel = async (examData: any, uniGroup: string) => {
   if (!isValidGroup(uniGroup)) return;
@@ -149,13 +151,10 @@ function App() {
       <SLogo $logo={excelSvg} />
 
       <SInputWrapper>
-        <SLabel>
-          ⓘ ჯგუფის ფორმატია: 23-10-04, 22-01-01 და ა.შ. შემდეგ დააჭირეთ ძიების
-          ღილაკს
-        </SLabel>
+        <SLabel>{LABEL_MSG}</SLabel>
         <SInputDiv>
           <Input
-            placeholder="ჩაწერე ჯგუფის ნომერი"
+            placeholder="ჩაწერეთ ჯგუფის ნომერი"
             type="text"
             onChange={handleInputChange}
           />
@@ -204,6 +203,7 @@ function App() {
           </SButtonsDiv>
         </SDataAndButtonsDiv>
       )}
+      <Footer />
     </SMainContainerDiv>
   );
 }
