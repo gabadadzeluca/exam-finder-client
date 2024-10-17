@@ -104,7 +104,7 @@ function App() {
   const fetchAPI = async (uniGroup: string) => {
     try {
       setLoading(true);
-      const response = await axios.get(API_URL, {
+      const response = await axios.get(`${API_URL}/api/data`, {
         params: { uniGroup: uniGroup },
       });
       console.log(response.data.examData);
