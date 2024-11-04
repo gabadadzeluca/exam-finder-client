@@ -26,7 +26,7 @@ import { Footer } from "./components/Footer";
 
 ring2.register();
 
-const API_URL = "https://exam-finder-server-production.up.railway.app/"; // change after hosting
+const API_URL = "https://exam-finder-server-production.up.railway.app";
 
 const ERROR_MSG = "ჯგუფი არ არსებობს, ან ჯერ არ არის დამატებული";
 const LABEL_MSG =
