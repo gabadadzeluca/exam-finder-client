@@ -14,14 +14,14 @@ import {
   SLabel,
   SInputWrapper,
 } from "./App.styled";
-import downloadIcon from "./assets/svgs/download.svg";
-import excelColoredIcon from "./assets/svgs/excelColored.svg";
+import downloadIcon from "/assets/svgs/download.svg";
+import excelColoredIcon from "/assets/svgs/excelColored.svg";
 import { Button } from "./components/Button";
 import { DataDisplay } from "./components/DataDisplay";
 import { Input } from "./components/Input";
 import { formatDate } from "./utils/formatDate";
 import { GROUPS } from "./utils/groups";
-import excelSvg from "./assets/svgs/excel.svg";
+import excelSvg from "/assets/svgs/excel.svg";
 import { Footer } from "./components/Footer";
 
 ring2.register();
