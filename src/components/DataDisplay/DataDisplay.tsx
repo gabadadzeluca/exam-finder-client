@@ -8,8 +8,8 @@ import {
   SInlineDataP,
 } from "./DataDisplay.styled";
 import { Button } from "../Button";
-import arrowDown from "./../../assets/svgs/arrowDown.svg";
-import arrowUp from "./../../assets/svgs/arrowUp.svg";
+import arrowDown from "/assets/svgs/arrowDown.svg";
+import arrowUp from "/assets/svgs/arrowUp.svg";
 
 // indexes of the most imporant data in the default array
 const DATA_INDEXES = [0, 1, 6];

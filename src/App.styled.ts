@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { COLORS } from "./utils/colors";
-import searchIcon from "./assets/svgs/searchIcon.svg";
-import brightSearchIcon from "./assets/svgs/searchIconBright.svg";
+import searchIcon from "/assets/svgs/searchIcon.svg";
+import brightSearchIcon from "/assets/svgs/searchIconBright.svg";
 
 export const SFlexContainer = styled.div`
   display: flex;

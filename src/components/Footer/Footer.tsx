@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { SLogo } from "../../App.styled"
-import githubLogo from "../../assets/svgs/githubLogo.svg";
+import githubLogo from "/assets/svgs/githubLogo.svg";
 
 const GITHUB_LINK = "https://github.com/gabadadzeluca/exam-finder-client";
 
