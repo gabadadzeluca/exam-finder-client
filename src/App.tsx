@@ -36,7 +36,7 @@ const downloadExcel = async (examData: any, uniGroup: string) => {
   if (!isValidGroup(uniGroup)) return;
   console.log("EXAMDATA FROM DOWNLOAD", JSON.stringify(examData));
   try {
-    const response = await axios.get(`${API_URL}/excel/download`, {
+    const response = await axios.post(`${API_URL}/excel/download`, {
       params: {
         examData: JSON.stringify(examData),
       },
