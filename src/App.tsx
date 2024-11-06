@@ -36,12 +36,16 @@ const downloadExcel = async (examData: any, uniGroup: string) => {
   if (!isValidGroup(uniGroup)) return;
   console.log("EXAMDATA FROM DOWNLOAD", JSON.stringify(examData));
   try {
-    const response = await axios.post(`${API_URL}/excel/download`, {
-      params: {
-        examData: JSON.stringify(examData),
-      },
-      responseType: "blob",
-    });
+    const response = await axios.post(
+      `${API_URL}/excel/download`,
+      { examData: examData }, // Send examData as JSON in the body
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        responseType: "blob",
+      }
+    );
 
     // Create a URL for the blob and trigger the download
     const url = window.URL.createObjectURL(new Blob([response.data]));
