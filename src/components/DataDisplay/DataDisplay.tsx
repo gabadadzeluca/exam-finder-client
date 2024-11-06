@@ -53,6 +53,18 @@ export const DataDisplay = (props: { examData: any[][] }) => {
     }));
   };
 
+  const isExamOver = (dateStr: string): boolean => {
+    const [day, month] = dateStr.split("/");
+    const examDate = new Date(2024, parseInt(month) - 1, parseInt(day)); // adjust month so it fits js logic;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (examDate < today) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const examData = props.examData;
   console.log("DATA(DISPL):", examData);
   if (examData != null && examData.length > 0) {
@@ -60,7 +72,11 @@ export const DataDisplay = (props: { examData: any[][] }) => {
       <SDataContainer>
         {examData.map((arr, rowIndex) => (
           <SDataRowWrapper key={rowIndex}>
-            <SDataRowDiv>
+            <SDataRowDiv
+              isExamOver={isExamOver(
+                arr[DATA_INDEXES[DATA_INDEXES.length - 1]]
+              )}
+            >
               {/* DISPLAY ONLY IMPORTANT DATA */}
               {arr.map((value: string, colIndex: number) => {
                 return (
@@ -68,6 +84,8 @@ export const DataDisplay = (props: { examData: any[][] }) => {
                     {
                       isDataIndexIncluded(colIndex) && value // Render the value if colIndex is included
                     }
+                    {/* {colIndex == DATA_INDEXES[DATA_INDEXES.length - 1] &&
+                      isExamOver(value) && <div>BEFORE</div>} */}
                   </SInlineDataP>
                 );
               })}
