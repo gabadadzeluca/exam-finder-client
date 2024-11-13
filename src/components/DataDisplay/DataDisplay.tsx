@@ -86,12 +86,12 @@ export const DataDisplay = (props: { examData: any[][] }) => {
                     }
                     {/* {colIndex == DATA_INDEXES[DATA_INDEXES.length - 1] &&
                       isExamOver(value) && <div>BEFORE</div>} */}
+                    {/* !!! add dropdown with toggle for exams that have passed !!!  */}
                   </SInlineDataP>
                 );
               })}
               {/* PRESS A BUTTON TO DROP DOWN A MENU WITH ALL THE DATA */}
               <Button
-                // onClick={() => {}}
                 onClick={() => toggleDropdown(rowIndex)}
                 icon={dropdownStates[rowIndex] ? arrowUp : arrowDown}
                 width="3rem"
