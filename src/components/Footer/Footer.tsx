@@ -37,7 +37,8 @@ const SCat = styled.div<{catImg: string}>`
   position: absolute;
   bottom: -0.75rem;
   left: 1rem;
-
+  opacity: 0.6;
+  
   @media (max-width: 1200px) {
     width: 12rem;
     height: 12rem;
