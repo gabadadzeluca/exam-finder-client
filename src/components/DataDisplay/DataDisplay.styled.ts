@@ -20,13 +20,13 @@ export const SDataContainer = styled.div`
   }
 `;
 
-export const SDataRowDiv = styled.div`
+export const SDataRowDiv = styled.div<{isExamOver: boolean}>`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-
+  opacity: ${({isExamOver})=> isExamOver ? '0.5' : ''};
   margin: 0 0 2rem; // TEMPORARY
   @media (max-width: 1200px) {
     padding: 0 2rem;
